@@ -1,0 +1,15 @@
+# Bash aliases!
+
+# General
+alias reload='. ~/.bashrc'
+alias '..'='cd ..'
+
+# Git
+alias git-add='git add --all'
+alias git-cmt='git commit -v'
+alias git-psh='git push'
+alias git-amend='git commit -v --amend'
+alias git-go='git add --all && git commit -v && git push'
+alias git-quick='git add --all && git commit -m "~" && git push' # For ~those days~
+alias git-undo='git reset --soft HEAD~1'
+

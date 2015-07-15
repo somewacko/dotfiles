@@ -1,0 +1,6 @@
+# OSX (just in case this folder gets peeked at with Finder)
+
+.DS_Store
+.Trashes
+*.swp
+
