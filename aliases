@@ -1,7 +1,7 @@
 # Bash aliases!
 
 # General
-alias reload='. ~/.bashrc'
+alias reload='. ~/.bash_profile && . ~/.bashrc'
 alias '..'='cd ..'
 
 # Git
