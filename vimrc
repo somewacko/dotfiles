@@ -19,6 +19,14 @@ set wrap linebreak
 set textwidth=80
 set colorcolumn=80
 
+set foldmethod=indent
+set foldlevel=99
+
+" Supertab!
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
+
 if has("gui_running")
 
     " Disable scrollbar
@@ -31,8 +39,14 @@ if has("gui_running")
     colorscheme base16-ateliercave
 
     " Quick commands for fonts
-    command FontReset set guifont=Inconsolata\ for\ Powerline:h14
-    command FontFur set guifont=monofur\ for\ Powerline:14 " for fun~
+    command! FontReset set guifont=Inconsolata\ for\ Powerline:h14
+    command! FontFur set guifont=monofur\ for\ Powerline:14 " for fun~
+
+    " Silence bell
+    set noerrorbells
+    set novisualbell
+    set t_vb=
+    autocmd! GUIEnter * set vb t_vb=
 
 else
     set t_Co=256
