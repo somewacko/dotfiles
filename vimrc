@@ -27,6 +27,13 @@ au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
+" Show embedded JS files as html
+au BufRead,BufNewFile *.ejs set filetype=html
+
+" No wrap, no color column, 2-space indent for html
+au BufRead,BufNewFile *.html,*.ejs set nowrap ts=2 sw=2 colorcolumn=
+
+
 if has("gui_running")
 
     " Disable scrollbar
@@ -40,7 +47,7 @@ if has("gui_running")
 
     " Quick commands for fonts
     command! FontReset set guifont=Inconsolata\ for\ Powerline:h14
-    command! FontFur set guifont=monofur\ for\ Powerline:14 " for fun~
+    command! FontFur set guifont=Monofur\ for\ Powerline:h14 " for fun~
 
     " Silence bell
     set noerrorbells
@@ -49,9 +56,11 @@ if has("gui_running")
     autocmd! GUIEnter * set vb t_vb=
 
 else
+    " Get 256 colors to work correctly
     set t_Co=256
+
     set background=dark
-    colorscheme grb256
+    colorscheme jellybeans
 endif
 
 let g:airline_powerline_fonts = 1
