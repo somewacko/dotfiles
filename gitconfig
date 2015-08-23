@@ -1,0 +1,8 @@
+[user]
+	name = zo7
+	email = zo7.flynn@gmail.com
+[push]
+	default = simple
+[core]
+	editor = /usr/local/bin/vim
+	excludesfile = ~/.gitignore

@@ -31,7 +31,7 @@ set completeopt=menuone,longest,preview
 au BufRead,BufNewFile *.ejs set filetype=html
 
 " No wrap, no color column, 2-space indent for html
-au BufRead,BufNewFile *.html,*.ejs set nowrap ts=2 sw=2 colorcolumn=
+au BufRead,BufNewFile *.html,*.ejs set nowrap nolinebreak ts=2 sw=2 colorcolumn=
 
 
 if has("gui_running")

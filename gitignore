@@ -1,0 +1,33 @@
+# global .gitignore | zo7
+#
+# set with:
+#   git config --global core.excludesfile '~/.gitignore'
+
+# osx
+
+.DS_Store
+.Trashes
+*.swp
+
+# vim
+
+.*.swp
+.*.swo
+
+# xcode
+
+*~.nib
+DerivedData/
+build/
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+.xccheckout
+xcuserdata/
+
