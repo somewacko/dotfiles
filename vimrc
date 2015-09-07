@@ -13,14 +13,24 @@ set ts=4 sw=4 sts=0
 set expandtab
 set backspace=indent,eol,start
 set listchars=tab:«-,trail:˙
-set list
 
-set wrap linebreak
-set textwidth=80
+" Wrap text, don't linebreak by default
+set wrap linebreak nolist
+set textwidth=79
 set colorcolumn=80
+set wrapmargin=80
+set formatoptions=l
+
+" Move cursor by display line, rather than physical
+nnoremap j gj
+nnoremap k gk
+nnoremap <up> g<up>
+nnoremap <down> g<down>
+inoremap <up> <C-o>gk
+inoremap <down> <C-o>gj
 
 set foldmethod=indent
-set foldlevel=99
+set foldlevel=80
 
 " Supertab!
 au FileType python set omnifunc=pythoncomplete#Complete
@@ -47,7 +57,7 @@ if has("gui_running")
 
     " Quick commands for fonts
     command! FontReset set guifont=Inconsolata\ for\ Powerline:h14
-    command! FontFur set guifont=Monofur\ for\ Powerline:h14 " for fun~
+    command! FontFur set guifont=Monofur\ for\ Powerline:h15 " for fun~
 
     " Silence bell
     set noerrorbells
