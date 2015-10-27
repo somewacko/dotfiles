@@ -15,7 +15,7 @@ set backspace=indent,eol,start
 set listchars=tab:«-,trail:˙
 
 " Wrap text, don't linebreak by default
-set wrap linebreak nolist
+set wrap linebreak list
 set textwidth=79
 set colorcolumn=80
 set wrapmargin=80
@@ -43,8 +43,26 @@ au BufRead,BufNewFile *.ejs set filetype=html
 " No wrap, no color column, 2-space indent for html
 au BufRead,BufNewFile *.html,*.ejs set nowrap nolinebreak ts=2 sw=2 colorcolumn=
 
+" Command to trim trailing whitespace
+command! Trim %s/\s\+$//e
+
+" Recommended settings for starting with Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Don't bold or italicize LaTeX
+hi clear texItalStyle
+hi clear texBoldStyle
+
 
 if has("gui_running")
+
+    set guioptions-=e
 
     " Disable scrollbar
     set guioptions-=T
@@ -53,7 +71,7 @@ if has("gui_running")
     set guifont=Inconsolata\ for\ Powerline:h14
 
     set background=dark
-    colorscheme base16-ateliercave
+    colorscheme jellybeans
 
     " Quick commands for fonts
     command! FontReset set guifont=Inconsolata\ for\ Powerline:h14
@@ -66,6 +84,14 @@ if has("gui_running")
     autocmd! GUIEnter * set vb t_vb=
 
 else
+    if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
+
     " Get 256 colors to work correctly
     set t_Co=256
 
