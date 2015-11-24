@@ -132,6 +132,10 @@ command! Size vert res 85
 " Trim trailing whitespace
 command! Trim %s/\s\+$//e
 
+" Startup command - Open NERDTree on the left and two windows on the right
+" (this would probably be better as a proper function)
+command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
+
 
 
 " ---- GUI/Terminal/Neovim Settings
