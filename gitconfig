@@ -4,5 +4,5 @@
 [push]
 	default = simple
 [core]
-	editor = /usr/local/bin/nvim
+	editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 	excludesfile = ~/.gitignore

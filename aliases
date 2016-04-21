@@ -1,4 +1,4 @@
-# Bash aliases!
+# Aliases!
 
 # General
 alias reload='. ~/.bash_profile && . ~/.bashrc'
@@ -13,5 +13,7 @@ alias git-go='git add --all && git commit -v && git push'
 alias git-quick='git add --all && git commit -m "~" && git push' # For ~those days~
 alias git-undo='git reset --soft HEAD~1'
 
+# Clocks
 alias fruity='watch -tcpn.5 '"'"'figlet -f big -W "$(date +%l:%M:%S)" |  toilet -f term --gay'"'"''
+alias clock='watch -tcpn.5 '"'"'figlet -f chunky -c -W "$(date +%l:%M:%S)"'"'"''
 

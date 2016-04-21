@@ -1,19 +1,22 @@
-" ---- ---- ---- ---- ---- ---- ---- ----
-"               vimrc | zo7
-" ---- ---- ---- ---- ---- ---- ---- ----
+" ---------------------------------------------------------------------------- "
+"                                __                                            "
+"                        .--.--.|__|.--------.----.----.                       "
+"                       _|  |  ||  ||        |   _|  __|                       "
+"                      |__\___/ |__||__|__|__|__| |____|                       "
+"                                                                              "
+"                                .vimrc | zo7                                  "
+"                                                                              "
+" ---------------------------------------------------------------------------- "
 
 
-
-" ---- Load and Set Up Plugins
+" ------------------------- Load and Set Up Plugins -------------------------- "
 
 filetype off
 execute pathogen#infect()
 filetype plugin indent on
 
 " Supertab!
-au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
 
 " Use Powerline fonts
 let g:airline_powerline_fonts = 1
@@ -27,66 +30,66 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Set Python paths
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+let g:python_host_prog  = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 
-" ---- General Configurations
+" ------------------------- General Configurations --------------------------- "
 
 syntax on
 set number
-set ts=4 sw=4 sts=0
+set ts=4 sw=4 sts=4
 set expandtab
 set backspace=indent,eol,start
 
 " Use special characters for tabs and trailing whitespace
-set listchars=tab:«-,trail:˙
+set listchars=tab:<-,trail:˙
 
 " Colorscheme of the moment
 set background=dark
-colorscheme iceberg
+colorscheme gotham
+
+" Color column 'wall'
+set cc=80
+let &colorcolumn=join(range(81,999),",")
 
 " Wrap text, don't linebreak by default
 set wrap linebreak list
 set textwidth=79
 set wrapmargin=80
 set formatoptions=l
-set cc=
 set foldlevel=80
 
 " No characters when splitting windows
 set fillchars+=vert:\ 
 
-" Highlight search
-set hlsearch
-
 " Just underline misspelled words
 hi clear SpellBad
 hi SpellBad cterm=underline
 
+" Get scratch areas to go away
+autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
+
+" New windows open below and to the right
+:set splitbelow
+:set splitright
 
 
-" ---- Context-Specific Settings
-
-" Show embedded JS files as html
-au BufRead,BufNewFile *.ejs set filetype=html
-
-" No wrap, no color column, 2-space indent for html
-au BufRead,BufNewFile *.html,*.ejs set nowrap nolinebreak ts=2 sw=2 colorcolumn=
+" ------------------------ Context-Specific Settings ------------------------- "
 
 " Don't bold or italicize LaTeX
 hi clear texItalStyle
 hi clear texBoldStyle
 
 
-
-" ---- Key Mappings
+" ------------------------------ Key Mappings -------------------------------- "
 
 " Move cursor by display line, rather than physical
 nnoremap j gj
 nnoremap k gk
-nnoremap <up> g<up>
-nnoremap <down> g<down>
-inoremap <up> <C-o>gk
-inoremap <down> <C-o>gj
 
 " Change window with C-<direction>
 noremap <C-h> <C-w>h
@@ -123,8 +126,7 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 
-
-" ---- Commands
+" -------------------------------- Commands ---------------------------------- "
 
 " Set current window to 85-width
 command! Size vert res 85
@@ -137,13 +139,38 @@ command! Trim %s/\s\+$//e
 command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
 
 
-
-" ---- GUI/Terminal/Neovim Settings
+" ---------------------- GUI/Terminal/Neovim Settings ------------------------ "
 
 if has("nvim")
     " Change cursor between modes
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+    " 24-bit colors!
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=0
+    let &t_8f="\e[38;2;%ld;%ld;%ldm"
+    let &t_8b="\e[48;2;%ld;%ld;%ldm"
+
+    " For whatever reason terminal colors don't work in neovim 24-bit...
+    " These set terminal colors to Gotham-themed colors.
+    let g:terminal_color_0  = '#0c1014'
+    let g:terminal_color_1  = '#11151c'
+    let g:terminal_color_2  = '#091f2e'
+    let g:terminal_color_3  = '#0a3749'
+    let g:terminal_color_4  = '#245361'
+    let g:terminal_color_5  = '#599cab'
+    let g:terminal_color_6  = '#99d1ce'
+    let g:terminal_color_7  = '#d3ebe9'
+
+    let g:terminal_color_8  = '#c23127'
+    let g:terminal_color_9  = '#d26937'
+    let g:terminal_color_10 = '#edb443'
+    let g:terminal_color_11 = '#888ca6'
+    let g:terminal_color_12 = '#4e5166'
+    let g:terminal_color_13 = '#195466'
+    let g:terminal_color_14 = '#33859e'
+    let g:terminal_color_15 = '#2aa889'
 endif
+
 
 if has("gui_running")
 
@@ -153,7 +180,7 @@ if has("gui_running")
     set guioptions-=T
     set guioptions-=r
     set guioptions-=L
-    set guifont=Inconsolata\ for\ Powerline:h14
+    set guifont=Inconsolata\ for\ Powerline:h12
 
     " Silence bell
     set noerrorbells
@@ -174,6 +201,4 @@ else " Terminal Settings
     " Get 256 colors to work correctly
     set t_Co=256
 endif
-
-
 
