@@ -1,4 +1,5 @@
 " ---------------------------------------------------------------------------- "
+"                                                                              "
 "                                __                                            "
 "                        .--.--.|__|.--------.----.----.                       "
 "                       _|  |  ||  ||        |   _|  __|                       "
@@ -18,10 +19,7 @@ filetype plugin indent on
 " Supertab!
 let g:SuperTabDefaultCompletionType = "context"
 
-" Use Powerline fonts
-let g:airline_powerline_fonts = 1
-
-" Recommended settings for starting with Syntastic
+" Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -31,9 +29,14 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Set Python paths
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
-let g:python_host_prog  = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:python_host_prog  = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
+" Configure Airline
+let g:airline_powerline_fonts = 0
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 
 " ------------------------- General Configurations --------------------------- "
@@ -47,13 +50,9 @@ set backspace=indent,eol,start
 " Use special characters for tabs and trailing whitespace
 set listchars=tab:<-,trail:˙
 
-" Colorscheme of the moment
-set background=dark
-colorscheme gotham
-
 " Color column 'wall'
-set cc=80
-let &colorcolumn=join(range(81,999),",")
+"set cc=81
+"let &colorcolumn=join(range(81,999),",")
 
 " Wrap text, don't linebreak by default
 set wrap linebreak list
@@ -62,7 +61,7 @@ set wrapmargin=80
 set formatoptions=l
 set foldlevel=80
 
-" No characters when splitting windows
+" No characters or colors when splitting windows
 set fillchars+=vert:\ 
 
 " Just underline misspelled words
@@ -76,6 +75,20 @@ autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " New windows open below and to the right
 :set splitbelow
 :set splitright
+
+if has("nvim")
+    " Use GUI colors in Neovim
+    set termguicolors
+
+    " Change cursor between modes
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+    " 24-bit colors!
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+" Get 256 colors to work correctly
+set t_Co=256
 
 
 " ------------------------ Context-Specific Settings ------------------------- "
@@ -139,66 +152,14 @@ command! Trim %s/\s\+$//e
 command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
 
 
-" ---------------------- GUI/Terminal/Neovim Settings ------------------------ "
+" ---------------------------- Colorscheme setup ----------------------------- "
 
-if has("nvim")
-    " Change cursor between modes
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+colorscheme dracula
+set background=dark
 
-    " 24-bit colors!
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=0
-    let &t_8f="\e[38;2;%ld;%ld;%ldm"
-    let &t_8b="\e[48;2;%ld;%ld;%ldm"
+" Custom colors
+hi VertSplit guibg=#44475A
+hi StatusLine guibg=#44475A
+hi StatusLineNC guibg=#44475A
 
-    " For whatever reason terminal colors don't work in neovim 24-bit...
-    " These set terminal colors to Gotham-themed colors.
-    let g:terminal_color_0  = '#0c1014'
-    let g:terminal_color_1  = '#11151c'
-    let g:terminal_color_2  = '#091f2e'
-    let g:terminal_color_3  = '#0a3749'
-    let g:terminal_color_4  = '#245361'
-    let g:terminal_color_5  = '#599cab'
-    let g:terminal_color_6  = '#99d1ce'
-    let g:terminal_color_7  = '#d3ebe9'
-
-    let g:terminal_color_8  = '#c23127'
-    let g:terminal_color_9  = '#d26937'
-    let g:terminal_color_10 = '#edb443'
-    let g:terminal_color_11 = '#888ca6'
-    let g:terminal_color_12 = '#4e5166'
-    let g:terminal_color_13 = '#195466'
-    let g:terminal_color_14 = '#33859e'
-    let g:terminal_color_15 = '#2aa889'
-endif
-
-
-if has("gui_running")
-
-    set guioptions-=e
-
-    " Disable scrollbar
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guifont=Inconsolata\ for\ Powerline:h12
-
-    " Silence bell
-    set noerrorbells
-    set novisualbell
-    set t_vb=
-    autocmd! GUIEnter * set vb t_vb=
-
-else " Terminal Settings
-
-    if exists('$TMUX')
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    endif
-
-    " Get 256 colors to work correctly
-    set t_Co=256
-endif
 
