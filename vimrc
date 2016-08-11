@@ -154,12 +154,8 @@ command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
 
 " ---------------------------- Colorscheme setup ----------------------------- "
 
-colorscheme dracula
+colorscheme iceberg
 set background=dark
-
-" Custom colors
-hi VertSplit guibg=#44475A
-hi StatusLine guibg=#44475A
-hi StatusLineNC guibg=#44475A
+let g:airline_theme="lucius"
 
 
