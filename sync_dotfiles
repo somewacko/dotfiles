@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+#
+# Script to create symbolic links for all dotfiles in the current user's home
+# directory. I got tired of all these dotfile managing tools that I would
+# forget the commands for. This is much simpler.
+
+SCRIPT_NAME=$(basename $0)
+DOTFILES_DIRECTORY=$(dirname $0)
+
+cd $DOTFILES_DIRECTORY
+
+for dotfile in $(ls)
+do
+    if [ $dotfile != "README.md"  ] &&
+       [ $dotfile != "LICENSE"    ] && 
+       [ $dotfile != $SCRIPT_NAME ]; then
+
+        # Check if there's already a symbolic link
+        if [ -h $HOME/.$dotfile ]; then
+
+            # Check that it points back here
+            if [ "$(readlink $HOME/.$dotfile)" != "$(pwd)/$dotfile" ]; then
+                echo "Symbolic link for ~/.$dotfile exists, but doesn't link to here!"
+            fi
+
+        # Check if it's a file, alert if it is
+        elif [ -e $HOME/.$dotfile ]; then
+            echo "~/.$dotfile file already exists!"
+
+        # Otherwise if it's harmless to add it, create the link
+        else
+            ln -s $(pwd)/$dotfile $HOME/.$dotfile
+        fi
+    fi
+done
