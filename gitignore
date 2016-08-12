@@ -1,21 +1,13 @@
-# global .gitignore | zo7
-#
-# set with:
-#   git config --global core.excludesfile '~/.gitignore'
-
 # osx
-
 .DS_Store
 .Trashes
 *.swp
 
 # vim
-
 .*.swp
 .*.swo
 
 # xcode
-
 *~.nib
 DerivedData/
 build/
@@ -30,4 +22,3 @@ build/
 !default.perspectivev3
 .xccheckout
 xcuserdata/
-

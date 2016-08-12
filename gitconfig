@@ -1,8 +1,8 @@
 [user]
-	name = zo7
-	email = zo7.flynn@gmail.com
+    name = zo7
+    email = zo7.flynn@gmail.com
 [push]
-	default = simple
+    default = simple
 [core]
-	editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
-	excludesfile = ~/.gitignore
+    editor = nvim
+    excludesfile = ~/.gitignore
