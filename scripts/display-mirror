@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#
+# Sets displays to mirror one another on my Linux machine.
+
+if [ "$(uname)" '==' "Linux" ]; then
+    xrandr \
+        --output HDMI-0 --mode 1920x1080 \
+        --output DVI-I-1 --mode 1920x1080 --same-as HDMI-0
+else
+    echo "You are not on Linux!"
+fi
