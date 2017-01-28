@@ -13,6 +13,11 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 
+# ---- Set PATH
+
+PATH="$PATH:$HOME/.dotfiles/scripts"
+
+
 # ---- Aliases
 
 # Prefer Neovim over Vim
