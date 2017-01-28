@@ -45,3 +45,5 @@ then
     fi
 fi
 
+eval "$(pyenv init -)"
+
