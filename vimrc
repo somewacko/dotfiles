@@ -38,6 +38,9 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 
+" NERDTree
+let NERDTreeIgnore = ['\.pyc$']
+
 
 " ------------------------- General Configurations --------------------------- "
 
@@ -60,6 +63,7 @@ set textwidth=79
 set wrapmargin=80
 set formatoptions=l
 set foldlevel=80
+set foldmethod=syntax
 
 " No characters or colors when splitting windows
 set fillchars+=vert:\ 
@@ -132,6 +136,11 @@ if has("nvim")
     tnoremap <C-q> <C-\><C-n>
 endif
 
+" Use space to fold methods in normal/visual mode
+nnoremap <space> za
+vnoremap <space> zf
+
+
 " Better vim habits
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -154,7 +163,9 @@ command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
 
 " ---------------------------- Colorscheme setup ----------------------------- "
 
-colorscheme iceberg
+if has("nvim")
+    colorscheme iceberg
+endif
 set background=dark
 let g:airline_theme="lucius"
 
