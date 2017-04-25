@@ -12,31 +12,20 @@
 
 " ------------------------- Load and Set Up Plugins -------------------------- "
 
-filetype off
-execute pathogen#infect()
-filetype plugin indent on
+if has("nvim")
+    call plug#begin('~/.local/share/nvim/plugged')
+else
+    call plug#begin('~/.vim/plugged')
+endif
+
+Plug 'ervandew/supertab'
+Plug 'maralla/completor.vim'
+Plug 'scrooloose/nerdtree'
+
+call plug#end()
 
 " Supertab!
 let g:SuperTabDefaultCompletionType = "context"
-
-" Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Set Python paths
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:python_host_prog  = '/usr/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
-
-" Configure Airline
-let g:airline_powerline_fonts = 0
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
 
 " NERDTree
 let NERDTreeIgnore = ['\.pyc$']
@@ -44,7 +33,7 @@ let NERDTreeIgnore = ['\.pyc$']
 
 " ------------------------- General Configurations --------------------------- "
 
-syntax on
+"syntax on
 set number
 set ts=4 sw=4 sts=4
 set expandtab
@@ -54,8 +43,9 @@ set backspace=indent,eol,start
 set listchars=tab:<-,trail:˙
 
 " Color column 'wall'
-"set cc=81
+set cc=81
 "let &colorcolumn=join(range(81,999),",")
+hi ColorColumn ctermbg=7
 
 " Wrap text, don't linebreak by default
 set wrap linebreak list
@@ -167,6 +157,4 @@ if has("nvim")
     colorscheme iceberg
 endif
 set background=dark
-let g:airline_theme="lucius"
-
 
