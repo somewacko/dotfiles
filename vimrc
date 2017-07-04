@@ -21,6 +21,7 @@ endif
 Plug 'ervandew/supertab'
 Plug 'maralla/completor.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'vim-python/python-syntax'
 
 call plug#end()
 
@@ -30,6 +31,14 @@ let g:SuperTabDefaultCompletionType = "context"
 " NERDTree
 let NERDTreeIgnore = ['\.pyc$']
 
+let g:python_version_2 = 1
+let g:python_highlight_all = 1
+
+
+" Use these characters instead of arrows, since NERDTree only checks if it's
+" a desktop machine to decide whether to use them
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="~"
 
 " ------------------------- General Configurations --------------------------- "
 
@@ -40,7 +49,7 @@ set expandtab
 set backspace=indent,eol,start
 
 " Use special characters for tabs and trailing whitespace
-set listchars=tab:<-,trail:˙
+set listchars=tab:<-,trail:-
 
 " Color column 'wall'
 set cc=81
