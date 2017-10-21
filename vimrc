@@ -1,62 +1,71 @@
-" ---------------------------------------------------------------------------- "
-"                                                                              "
-"                                __                                            "
-"                        .--.--.|__|.--------.----.----.                       "
-"                       _|  |  ||  ||        |   _|  __|                       "
-"                      |__\___/ |__||__|__|__|__| |____|                       "
-"                                                                              "
-"                                .vimrc | zo7                                  "
-"                                                                              "
-" ---------------------------------------------------------------------------- "
+"           __
+"   .--.--.|__|.--------.----.----.
+"  _|  |  ||  ||        |   _|  __|
+" |__\___/ |__||__|__|__|__| |____|
+"
 
+" --- load plugins
 
-" ------------------------- Load and Set Up Plugins -------------------------- "
-
-if has("nvim")
-    call plug#begin('~/.local/share/nvim/plugged')
-else
-    call plug#begin('~/.vim/plugged')
-endif
+call plug#begin('~/.vim/plugged')
 
 Plug 'ervandew/supertab'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maralla/completor.vim'
+Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-python/python-syntax'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
 
 call plug#end()
 
-" Supertab!
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-" NERDTree
 let NERDTreeIgnore = ['\.pyc$']
 
-let g:python_version_2 = 1
-let g:python_highlight_all = 1
-
-
-" Use these characters instead of arrows, since NERDTree only checks if it's
-" a desktop machine to decide whether to use them
+" use plain characters instead of arrows (no fun over ssh)
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
-" ------------------------- General Configurations --------------------------- "
+let g:ale_lint_on_enter = 1
+let g:ale_lint_delay = 500
 
-"syntax on
+let g:lightline = {
+\ 'colorscheme': 'iceberg',
+\ }
+set laststatus=2
+set noshowmode
+
+autocmd User ALELint call s:MaybeUpdateLightline()
+
+function! s:MaybeUpdateLightline()
+    if exists('#lightline')
+        call lightline#update()
+    end
+endfunction
+
+
+" --- general
+
+syntax on
 set number
 set ts=4 sw=4 sts=4
 set expandtab
 set backspace=indent,eol,start
 
-" Use special characters for tabs and trailing whitespace
+" use special characters for tabs and trailing whitespace
 set listchars=tab:<-,trail:-
 
-" Color column 'wall'
+" color column 'wall'
 set cc=81
 "let &colorcolumn=join(range(81,999),",")
 hi ColorColumn ctermbg=7
 
-" Wrap text, don't linebreak by default
+" wrap text, don't linebreak by default
 set wrap linebreak list
 set textwidth=79
 set wrapmargin=80
@@ -64,106 +73,69 @@ set formatoptions=l
 set foldlevel=80
 set foldmethod=syntax
 
-" No characters or colors when splitting windows
+" no characters or colors when splitting windows
 set fillchars+=vert:\ 
 
-" Just underline misspelled words
+" just underline misspelled words
 hi clear SpellBad
 hi SpellBad cterm=underline
 
-" Get scratch areas to go away
-autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" get scratch areas to go away
+"autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
-" New windows open below and to the right
+" new windows open below and to the right
 :set splitbelow
 :set splitright
 
-if has("nvim")
-    " Use GUI colors in Neovim
-    set termguicolors
-
-    " Change cursor between modes
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
-    " 24-bit colors!
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
-" Get 256 colors to work correctly
+" true color
+set termguicolors
 set t_Co=256
 
-
-" ------------------------ Context-Specific Settings ------------------------- "
-
-" Don't bold or italicize LaTeX
+" don't bold or italicize LaTeX
 hi clear texItalStyle
 hi clear texBoldStyle
 
+" colorscheme
+set background=dark
+colorscheme iceberg
 
-" ------------------------------ Key Mappings -------------------------------- "
 
-" Move cursor by display line, rather than physical
+" --- key mappings
+
+" move cursor by display line, rather than physical
 nnoremap j gj
 nnoremap k gk
 
-" Change window with C-<direction>
+" change window with C-<direction>
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-if has("nvim")
-    " Change windows from terminal mode easily
-    tnoremap <C-h> <C-\><C-n><C-w>h
-    tnoremap <C-j> <C-\><C-n><C-w>j
-    tnoremap <C-k> <C-\><C-n><C-w>k
-    tnoremap <C-l> <C-\><C-n><C-w>l
-endif
 
-" Also create windows by just holding ctrl
+" also create windows by just holding ctrl
 nnoremap <C-s> <C-w>s
 nnoremap <C-v> <C-w>v
-if has("nvim")
-    " Also do it in terminal mode
-    tnoremap <C-s> <C-\><C-n><C-w>s
-    tnoremap <C-v> <C-\><C-n><C-w>v
-endif
 
-" In neovim, use C-q to get to normal mode (It turns out that
-" remapping Esc to do this is a bad idea...)
-if has("nvim")
-    tnoremap <C-q> <C-\><C-n>
-endif
-
-" Use space to fold methods in normal/visual mode
+" use space to fold methods in normal/visual mode
 nnoremap <space> za
 vnoremap <space> zf
 
-
-" Better vim habits
+" better vim habits
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 
-" -------------------------------- Commands ---------------------------------- "
+" --- commands
 
-" Set current window to 85-width
-command! Size vert res 85
-
-" Trim trailing whitespace
+" trim trailing whitespace
 command! Trim %s/\s\+$//e
 
-" Startup command - Open NERDTree on the left and two windows on the right
-" (this would probably be better as a proper function)
-command! Start NERDTree|wincmd l|vsp|vert res 85|wincmd l|sp|wincmd h
 
+" --- etc
 
-" ---------------------------- Colorscheme setup ----------------------------- "
-
-if has("nvim")
-    colorscheme iceberg
-endif
-set background=dark
-
+" generate help files
+packloadall
+silent! helptags ALL
