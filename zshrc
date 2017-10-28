@@ -12,12 +12,12 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.dotfiles/scripts"
 
 # fzf
-if [ -f "~/.fzf.zsh" ]; then
+if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
 fi
 
 # pyenv
-if [ -d "~/.pyenv" ]; then
+if [ -d ~/.pyenv ]; then
     export PATH="/home/flynn/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
 fi
