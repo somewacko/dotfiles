@@ -22,3 +22,5 @@ build/
 !default.perspectivev3
 .xccheckout
 xcuserdata/
+
+*.pyc
