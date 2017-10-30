@@ -35,9 +35,6 @@ let g:NERDTreeDirArrowCollapsible="~"
 let g:ale_lint_on_enter = 1
 let g:ale_lint_delay = 500
 
-let g:lightline = {
-\ 'colorscheme': 'iceberg',
-\ }
 set laststatus=2
 set noshowmode
 
@@ -82,17 +79,15 @@ set fillchars+=vert:\
 hi clear SpellBad
 hi SpellBad cterm=underline
 
-" get scratch areas to go away
-"autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
 " new windows open below and to the right
-:set splitbelow
-:set splitright
+set splitbelow
+set splitright
 
 " true color
-set termguicolors
-set t_Co=256
+if v:version >= 800
+    set termguicolors
+    set t_Co=256
+endif
 
 " don't bold or italicize LaTeX
 hi clear texItalStyle
@@ -100,7 +95,14 @@ hi clear texBoldStyle
 
 " colorscheme
 set background=dark
-colorscheme iceberg
+try
+    colorscheme iceberg
+    let g:lightline = {
+    \ 'colorscheme': 'iceberg',
+    \ }
+catch
+    " Do nothing
+endtry
 
 
 " --- key mappings
