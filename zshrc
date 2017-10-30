@@ -26,7 +26,7 @@ fi
 
 # tensorflow
 if [ -d $HOME/tensorflow ]; then
-    export PATH="$PATH:$HOME/3rd/tensorflow/bazel-bin/tensorflow/tools/graph_transforms"
+    export PATH="$PATH:$HOME/tensorflow/bazel-bin/tensorflow/tools/graph_transforms"
 fi
 
 # torch
