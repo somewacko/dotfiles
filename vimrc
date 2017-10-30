@@ -9,6 +9,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'ervandew/supertab'
+Plug 'hdima/python-syntax'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maralla/completor.vim'
@@ -48,6 +49,7 @@ function! s:MaybeUpdateLightline()
     end
 endfunction
 
+let g:python_highlight_builtins = 1
 
 " --- general
 
