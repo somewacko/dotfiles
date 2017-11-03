@@ -1,7 +1,6 @@
 # oh-my-zsh
 export ZSH=$HOME/.oh-my-zsh
-export ZSH_CUSTOM=$HOME/.zsh_custom
-ZSH_THEME="remote"
+ZSH_THEME="theunraveler"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
