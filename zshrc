@@ -47,4 +47,3 @@ fi
 if [[ -f "$HOME/loom.ai/third-party/configure" ]]; then
     source $HOME/loom.ai/third-party/configure
 fi
-
