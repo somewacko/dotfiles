@@ -15,10 +15,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maralla/completor.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -38,7 +38,7 @@ let g:ale_lint_delay = 500
 set laststatus=2
 set noshowmode
 
-autocmd User ALELint call s:MaybeUpdateLightline()
+"autocmd User ALELint call s:MaybeUpdateLightline()
 
 function! s:MaybeUpdateLightline()
     if exists('#lightline')
@@ -50,6 +50,7 @@ let g:python_highlight_builtins = 1
 
 " --- general
 
+set regexpengine=1
 syntax on
 set number
 set ts=4 sw=4 sts=4
