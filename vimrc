@@ -26,7 +26,7 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.egg-info$']
 
 " use plain characters instead of arrows (no fun over ssh)
 let g:NERDTreeDirArrowExpandable="+"
