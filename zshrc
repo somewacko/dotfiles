@@ -34,13 +34,23 @@ if [[ -d $HOME/.pyenv ]]; then
 fi
 
 # tensorflow
-if [[ -d $HOME/tensorflow ]]; then
+if [[ -d $HOME/src/tensorflow ]]; then
     export PATH="$PATH:$HOME/tensorflow/bazel-bin/tensorflow/tools/graph_transforms"
 fi
 
 # torch
 if [[ -d $HOME/torch ]]; then
     . $HOME/torch/install/bin/torch-activate
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [[ -f "$HOME/src/google-cloud-sdk/path.zsh.inc" ]]; then
+    source "$HOME/src/google-cloud-sdk/path.zsh.inc"
+fi
+
+# The next line enables shell command completion for gcloud.
+if [[ -f "$HOME/src/google-cloud-sdk/completion.zsh.inc" ]]; then
+    source "$HOME/src/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # work stuff
