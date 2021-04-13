@@ -6,10 +6,17 @@
 
 " --- load plugins
 
+" Automatic install plug.vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'ervandew/supertab'
-Plug 'hdima/python-syntax'
+" Plug 'hdima/python-syntax'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maralla/completor.vim'
@@ -18,7 +25,8 @@ Plug 'scrooloose/nerdtree'
 "Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
+Plug 'psf/black'
 
 call plug#end()
 
@@ -34,6 +42,10 @@ let g:NERDTreeDirArrowCollapsible="~"
 
 let g:ale_lint_on_enter = 1
 let g:ale_lint_delay = 500
+
+let b:ale_linters = ['flake8']
+let b:ale_fixers = {'python': ['black']}
+let g:ale_fix_on_save = 1
 
 set laststatus=2
 set noshowmode
