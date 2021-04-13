@@ -23,4 +23,10 @@ build/
 .xccheckout
 xcuserdata/
 
+# python
 *.pyc
+__pycache__
+venv/
+
+# scratch directory
+_/

@@ -16,17 +16,22 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'ervandew/supertab'
-" Plug 'hdima/python-syntax'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'maralla/completor.vim'
-Plug 'mileszs/ack.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'scrooloose/nerdtree'
-"Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
 Plug 'psf/black'
+Plug 'vim-python/python-syntax'
+Plug 'w0rp/ale'
+
+" Install deoplete
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
@@ -41,7 +46,11 @@ let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
 let g:ale_lint_on_enter = 1
-let g:ale_lint_delay = 500
+let g:ale_lint_delay = 100
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'typescript': [],
+\}
 
 let b:ale_linters = ['flake8']
 let b:ale_fixers = {'python': ['black']}
@@ -60,6 +69,8 @@ endfunction
 
 let g:python_highlight_builtins = 1
 
+let g:completor_python_binary = '~/.pyenv/shims/python'
+
 " --- general
 
 set regexpengine=1
@@ -68,21 +79,20 @@ set number
 set ts=4 sw=4 sts=4
 set expandtab
 set backspace=indent,eol,start
+set hlsearch
 
 " use special characters for tabs and trailing whitespace
 set listchars=tab:<-,trail:-
 
-" color column 'wall'
-set cc=81
-"let &colorcolumn=join(range(81,999),",")
+set cc=101
 hi ColorColumn ctermbg=7
 
 " wrap text, don't linebreak by default
 set wrap linebreak list
-set textwidth=79
-set wrapmargin=80
+set textwidth=100
+set wrapmargin=100
 set formatoptions=l
-set foldlevel=80
+set foldlevel=100
 set foldmethod=syntax
 
 " no characters or colors when splitting windows
@@ -143,6 +153,13 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+" terminal remaps
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
+
 
 
 " --- commands
