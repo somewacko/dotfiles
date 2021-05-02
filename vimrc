@@ -23,16 +23,6 @@ Plug 'psf/black'
 Plug 'vim-python/python-syntax'
 Plug 'w0rp/ale'
 
-" Install deoplete
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-
 call plug#end()
 
 let g:SuperTabDefaultCompletionType = "context"
@@ -84,7 +74,7 @@ set hlsearch
 " use special characters for tabs and trailing whitespace
 set listchars=tab:<-,trail:-
 
-set cc=101
+set cc=80
 hi ColorColumn ctermbg=7
 
 " wrap text, don't linebreak by default
